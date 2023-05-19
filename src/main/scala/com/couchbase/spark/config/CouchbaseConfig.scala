@@ -16,12 +16,10 @@
 
 package com.couchbase.spark.config
 
-import com.couchbase.client.core.error.InvalidArgumentException
 import com.couchbase.client.core.util.ConnectionString
 import org.apache.spark.SparkConf
 
 import java.util.Locale
-import scala.collection.mutable.ArrayBuffer
 
 case class Credentials(username: String, password: String)
 
@@ -149,7 +147,7 @@ object CouchbaseConfig {
     import scala.collection.JavaConverters._
     ConnectionIdentifierParsed(connectionIdentifier,
       cs.scheme().name().toLowerCase,
-      cs.hosts.asScala,
+      cs.hosts.asScala.toSeq,
       if (cs.username() == null) None else Some(cs.username.split(":")(0)),
       if (cs.username() == null) None else Some(cs.username.split(":")(1)),
       cs.params.asScala.toSeq)

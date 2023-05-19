@@ -15,21 +15,18 @@
  */
 package com.couchbase.spark.analytics
 
+import com.couchbase.client.scala.analytics.{AnalyticsScanConsistency, AnalyticsOptions => CouchbaseAnalyticsOptions}
+import com.couchbase.client.scala.codec.JsonDeserializer.Passthrough
 import com.couchbase.spark.DefaultConstants
 import com.couchbase.spark.config.{CouchbaseConfig, CouchbaseConnection}
-import com.couchbase.client.scala.analytics.{
-  AnalyticsScanConsistency,
-  AnalyticsOptions => CouchbaseAnalyticsOptions
-}
-import com.couchbase.client.scala.codec.JsonDeserializer.Passthrough
 import com.couchbase.spark.query.QueryOptions
 import org.apache.spark.internal.Logging
-import org.apache.spark.sql.{Encoders, SparkSession}
 import org.apache.spark.sql.connector.catalog.{Table, TableProvider}
 import org.apache.spark.sql.connector.expressions.Transform
 import org.apache.spark.sql.sources.DataSourceRegister
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.util.CaseInsensitiveStringMap
+import org.apache.spark.sql.{Encoders, SparkSession}
 
 import java.util
 
@@ -88,7 +85,7 @@ class AnalyticsTableProvider extends TableProvider with Logging with DataSourceR
         .analyticsQuery(statement, opts)
     }
 
-    val rows   = result.flatMap(result => result.rowsAs[String](Passthrough.StringConvert)).get
+    val rows= result.flatMap(result => result.rowsAs[String](Passthrough.StringConvert)).get.toList
     val ds     = sparkSession.sqlContext.createDataset(rows)(Encoders.STRING)
     val schema = sparkSession.sqlContext.read.json(ds).schema
 

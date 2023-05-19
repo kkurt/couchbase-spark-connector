@@ -248,7 +248,7 @@ class CouchbaseConnection(val identifier: String) extends Serializable with Logg
       .doOnNext(v => logDebug(s"Got configuration with ${v.size} nodes"))
       // Safety timer on waiting for the config
       .blockFirst(core.context.environment.timeoutConfig.connectTimeout)
-      .asScala
+      .asScala.toSeq
 
     val allSeedNodes = nodes
       .map(node => {

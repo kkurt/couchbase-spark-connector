@@ -98,7 +98,7 @@ class AnalyticsRDD[T: ClassTag](
               } else {
                 p.hostname()
               }
-            })
+            }).toSeq
         )
       )
     } else {

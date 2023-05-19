@@ -75,7 +75,7 @@ class SearchRDD(
               } else {
                 p.hostname()
               }
-            })
+            }).toSeq
         )
       )
     } else {
