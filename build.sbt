@@ -1,6 +1,6 @@
 name := "spark-connector"
 
-version := "3.3.2"
+version := "3.4.1"
 
 organization := "com.couchbase.client"
 
@@ -8,8 +8,8 @@ scalaVersion := "2.13.10"
 
 scalacOptions := Seq("-unchecked", "-deprecation")
 
-val sparkVersion = sys.props.get("spark.testVersion").getOrElse("3.3.2")
-val sdkVersion   = "1.4.3"
+val sparkVersion = sys.props.get("spark.testVersion").getOrElse("3.4.1")
+val sdkVersion   = "1.4.4"
 val dcpVersion   = "0.44.0"
 
 scalacOptions += "-feature"
@@ -37,10 +37,10 @@ scmInfo := Some(
 
 developers := List(
   Developer(
-    "daschl",
-    "Michael Nitschinger",
-    "michael.nitschinger@couchbase.com",
-    url("https://github.com/daschl")
+    "kkurt",
+    "Kursat Kurt",
+    "kursatq@xWorksGlobal.com",
+    url("https://github.com/kkurt")
   ),
   Developer(
     "programmatix",

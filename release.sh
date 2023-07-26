@@ -11,7 +11,7 @@
 # 2. Now edit these versions:
 
 vers_sha=04a6fcd35aca87cf2c7bee3e790af7f3cb69f866  # the Git sha being released
-vers=3.3.1                                         # the version being released
+vers=3.3.2                                         # the version being released
 
 # 3. Now run the script from the script's directory, e.g.
 #   cd couchbase-spark-connector
@@ -31,7 +31,7 @@ set -x
 # Variables.
 staging_dir=~/temp/staging/couchbase-spark-connector/$vers
 maven_repo=~/.m2/repository
-name=spark-connector_2.12-$vers
+name=spark-connector_2.13-$vers
 snapshot=false                                    # whether this is a SNAPSHOT release
 if [[ "$vers" == *"-SNAPSHOT" ]]; then
   snapshot=true
@@ -53,13 +53,13 @@ sbt assembly
 
 # Upload the docs.
 if ! $snapshot; then
-  s3cmd --acl-public --no-mime-magic -M -r put target/scala-2.12/api s3://docs.couchbase.com/sdk-api/couchbase-spark-connector-$vers/
+  s3cmd --acl-public --no-mime-magic -M -r put target/scala-2.13/api s3://docs.couchbase.com/sdk-api/couchbase-spark-connector-$vers/
 fi
 
 # Stage to Sonatype.  Not allowed to upload from local repo so need to copy to a staging dir.
 mkdir -p $staging_dir
-cp $maven_repo/com/couchbase/client/spark-connector_2.12/$vers/* $staging_dir
-cp target/scala-2.12/spark-connector-assembly-$vers.jar $staging_dir
+cp $maven_repo/com/couchbase/client/spark-connector_2.13/$vers/* $staging_dir
+cp target/scala-2.13/spark-connector-assembly-$vers.jar $staging_dir
 pushd $staging_dir
 
 # Publishing to Sonatype not working for SNAPSHOT, but presumably could.
@@ -71,7 +71,7 @@ fi
 
 # Create and upload the zipfile.
 # We still do this for SNAPSHOT to make it easy for users to access.
-zipfile=Couchbase-Spark-Connector_2.12-$vers.zip
+zipfile=Couchbase-Spark-Connector_2.13-$vers.zip
 zip $zipfile *.jar *.pom spark-connector-assembly-$vers.jar
 s3cmd --acl-public --no-mime-magic -M -r put $zipfile s3://packages.couchbase.com/clients/connectors/spark/$vers/
 
