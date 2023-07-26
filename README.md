@@ -7,13 +7,13 @@ This repository contains the official [Apache Spark](https://spark.apache.org/) 
 The connector is available through the following coordinates:
 
  - **Group:** `com.couchbase.client`
- - **Artifact:** `spark-connector_2.12`
- - **Version:** `3.3.1` 
+ - **Artifact:** `spark-connector_2.13`
+ - **Version:** `3.3.2` 
 
 If you are using SBT:
 
 ```
-libraryDependencies += "com.couchbase.client" %% "spark-connector" % "3.3.1"
+libraryDependencies += "com.couchbase.client" %% "spark-connector" % "3.3.2"
 ```
 
 ## Documentation
