@@ -44,6 +44,8 @@ class QueryTableProvider
     with DataSourceRegister
     with CreatableRelationProvider {
 
+
+
   override def shortName(): String = "couchbase.query"
 
   private lazy val sparkSession = SparkSession.active
